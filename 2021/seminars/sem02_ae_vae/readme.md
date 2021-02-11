@@ -1,0 +1,1 @@
+Семинар 2: Вариационные автокодировщики. [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/hse-ds/iad-applied-ds/blob/master/2021/seminars/sem02_ae_vae/sem2-autoencoders.ipynb#scrollTo=s_28ChxFuapE)
