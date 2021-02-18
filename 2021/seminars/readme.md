@@ -1,1 +1,2 @@
-Семинар 1: Трансформация изображений [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/hse-ds/iad-applied-ds/blob/master/2021/seminars/Sem1_neural_style.ipynb)
+- Семинар 1: Трансформация изображений [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/hse-ds/iad-applied-ds/blob/master/2021/seminars/Sem1_neural_style.ipynb)
+- Семинар 3: Генеративно-состязательные сети [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/hse-ds/iad-applied-ds/blob/master/2021/seminars/sem03_gan.ipynb)
