@@ -1,8 +1,8 @@
 # Материалы семинаров
 
 Рекомендованное окружение для запуска кода с занятий:
-- `Python v.3.9+`
-- `Pytorch v.1.10+`
+- `Python 3.9+`
+- `Pytorch 1.10+`
 
 Темы занятий:
 - Семинар 1: Style Transfer на основе статьи "A Neural Algorithm of Artistic Style"
