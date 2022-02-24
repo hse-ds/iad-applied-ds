@@ -8,4 +8,4 @@
 - Семинар 1: Style Transfer на основе статьи "A Neural Algorithm of Artistic Style"
 - Семинар 2: Autoencoders and Variational Autoencoders
 - Семинар 3: Vanilla GAN, Conditional GAN
-- Семинар 4: Normalizing flows: toy example, Real NVP, NF prior for VAE
+- Семинар 4: Normalizing flows toy example, Real NVP, NF prior for VAE
