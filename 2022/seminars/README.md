@@ -10,3 +10,5 @@
 - Семинар 3: Vanilla GAN, Conditional GAN
 - Семинар 4: Normalizing flows toy example, Real NVP, NF prior for VAE
 - Семинар 5: Speech recognition, получение Мел-спектрограммы по сигналу, QuartzNet
+- Семинар 6: WaveNet для генерации звука
+- Семинар 7: Временные ряды. Регрессия, выделение сезонности, стационарность, ARIMA
