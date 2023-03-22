@@ -1,0 +1,4 @@
+etna[all]
+torch==1.11.0
+tsfresh
+protobuf
