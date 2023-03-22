@@ -1,4 +1,4 @@
-etna[all]
+etna[all]==1.15.1
 torch==1.11.0
-tsfresh
-protobuf
+tsfresh==0.20.0
+protobuf==3.20.3
