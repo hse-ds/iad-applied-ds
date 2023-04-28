@@ -1,0 +1,5 @@
+etna[all]==1.15.1
+torch==1.11.0
+tsfresh==0.20.0
+protobuf==3.20.3
+gdown==4.6.4
