@@ -1,0 +1,21 @@
+# IDE
+.idea
+
+# mac-related
+.DS_Store
+__MACOSX
+
+# notebooks
+.ipynb_checkpoints
+
+# python
+__pycache__
+
+# logging
+lightning_logs
+wandb
+*.net
+
+# datasets
+*.zip
+data
