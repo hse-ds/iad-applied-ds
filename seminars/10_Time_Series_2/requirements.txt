@@ -1,0 +1,12 @@
+etna[all]==2.6.0
+torch==1.11.0
+tsfresh==0.20.0
+protobuf==3.20.3
+gdown==5.1.0
+transformers==4.39.3
+datasets==2.18.0
+evaluate==0.4.1
+accelerate==0.29.2
+gluonts==0.12.5
+ujson==5.9.0
+pytorch-lightning==1.9.5
