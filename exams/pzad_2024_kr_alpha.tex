@@ -1,0 +1,321 @@
+\documentclass[12pt]{article}
+
+\usepackage{tikz} % картинки в tikz
+\usepackage{microtype} % свешивание пунктуации
+\usepackage{array} % для столбцов фиксированной ширины
+\usepackage{comment} % для комментирования целых окружений
+\usepackage{indentfirst} % отступ в первом параграфе
+
+\usepackage{sectsty} % для центрирования названий частей
+\allsectionsfont{\centering}
+
+\usepackage{amsmath, amssymb, amsthm, amsfonts} % куча стандартных математических плюшек
+
+\usepackage[top=2cm, left=1cm, right=1cm, bottom=2cm]{geometry} % размер текста на странице
+\usepackage{lastpage} % чтобы узнать номер последней страницы
+ 
+\usepackage{enumitem} % дополнительные плюшки для списков
+%  например \begin{enumerate}[resume] позволяет продолжить нумерацию в новом списке
+
+\usepackage{caption} % подписи к рисункам
+\usepackage{hyperref} % гиперссылки
+\usepackage{multicol} % текст в несколько столбцов
+
+
+\usepackage{fancyhdr} % весёлые колонтитулы
+\pagestyle{fancy}
+\lhead{Прикладные задачи анализа данных, ВШЭ}
+\chead{}
+\rhead{\today}
+\lfoot{Вариант $\alpha$}
+\rfoot{Паниковать запрещается!}
+%\rfoot{Тест}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\usepackage{ifthen} % для написания условий
+
+\usepackage{todonotes} % для вставки в документ заметок о том, что осталось сделать
+% \todo{Здесь надо коэффициенты исправить}
+% \missingfigure{Здесь будет Последний день Помпеи}
+% \listoftodos --- печатает все поставленные \todo'шки
+
+
+% более красивые таблицы
+\usepackage{booktabs}
+% заповеди из докупентации:
+% 1. Не используйте вертикальные линни
+% 2. Не используйте двойные линии
+% 3. Единицы измерения - в шапку таблицы
+% 4. Не сокращайте .1 вместо 0.1
+% 5. Повторяющееся значение повторяйте, а не говорите "то же"
+
+
+\usepackage{fontspec}
+\usepackage{polyglossia}
+
+\setmainlanguage{russian}
+\setotherlanguages{english}
+
+% download "Linux Libertine" fonts:
+% http://www.linuxlibertine.org/index.php?id=91&L=1
+\setmainfont{Linux Libertine O} % or Helvetica, Arial, Cambria
+% why do we need \newfontfamily:
+% http://tex.stackexchange.com/questions/91507/
+\newfontfamily{\cyrillicfonttt}{Linux Libertine O}
+
+% Математические шрифты 
+% Математические шрифты 
+\usepackage{unicode-math}     
+\setmathfont[math-style=upright]{euler.otf} 
+
+\setmathfont[range={\mathbb, \mathop, \heartsuit, \angle, \smile, \varheartsuit}]{Asana-Math.otf}
+
+\AddEnumerateCounter{\asbuk}{\russian@alph}{щ} % для списков с русскими буквами
+\setlist[enumerate, 2]{label=\asbuk*),ref=\asbuk*}
+
+
+% мои цвета https://www.artlebedev.ru/colors/
+\definecolor{titleblue}{rgb}{0.2,0.4,0.6} 
+\definecolor{blue}{rgb}{0.2,0.4,0.6} 
+\definecolor{red}{rgb}{1,0,0.2} 
+\definecolor{green}{rgb}{0,0.6,0} 
+\definecolor{purp}{rgb}{0.4,0,0.8} 
+
+% цвета из geogebra 
+\definecolor{litebrown}{rgb}{0.6,0.2,0}
+\definecolor{darkbrown}{rgb}{0.75,0.75,0.75}
+
+% Гиперссылки
+\usepackage{xcolor}   % разные цвета
+
+\usepackage{hyperref}
+\hypersetup{
+    unicode=true,           % позволяет использовать юникодные символы
+    colorlinks=true,        % true - цветные ссылки
+    urlcolor=blue,          % цвет ссылки на url
+    linkcolor=black,          % внутренние ссылки
+    citecolor=green,        % на библиографию
+    breaklinks              % если ссылка не умещается в одну строку, разбивать её на две части?
+}
+
+% эпиграфы
+\usepackage{epigraph}
+\setlength\epigraphwidth{.6\textwidth}
+\setlength\epigraphrule{0pt}
+
+% Математические операторы первой необходимости:
+\DeclareMathOperator{\sgn}{sign}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Corr}{Corr}
+\DeclareMathOperator{\E}{\mathop{E}}
+\DeclareMathOperator{\Med}{Med}
+\DeclareMathOperator{\Mod}{Mod}
+\DeclareMathOperator*{\plim}{plim}
+
+\DeclareMathOperator{\logloss}{logloss}
+\DeclareMathOperator{\softmax}{softmax}
+
+\DeclareMathOperator{\tr}{tr}
+
+% команды пореже
+\newcommand{\const}{\mathrm{const}}  % const прямым начертанием
+\newcommand{\iid}{\sim i.\,i.\,d.}  % ну вы поняли...
+\newcommand{\fr}[2]{\ensuremath{^{#1}/_{#2}}}   % особая дробь
+\newcommand{\ind}[1]{\mathbbm{1}_{\{#1\}}} % Индикатор события
+\newcommand{\dx}[1]{\,\mathrm{d}#1} % для интеграла: маленький отступ и прямая d
+
+% одеваем шапки на частые штуки
+\def \hb{\hat{\beta}}
+\def \hs{\hat{s}}
+\def \hy{\hat{y}}
+\def \hY{\hat{Y}}
+\def \he{\hat{\varepsilon}}
+\def \hVar{\widehat{\Var}}
+\def \hCorr{\widehat{\Corr}}
+\def \hCov{\widehat{\Cov}}
+
+% Греческие буквы
+\def \a{\alpha}
+\def \b{\beta}
+\def \t{\tau}
+\def \dt{\delta}
+\def \e{\varepsilon}
+\def \ga{\gamma}
+\def \kp{\varkappa}
+\def \la{\lambda}
+\def \sg{\sigma}
+\def \tt{\theta}
+\def \Dt{\Delta}
+\def \La{\Lambda}
+\def \Sg{\Sigma}
+\def \Tt{\Theta}
+\def \Om{\Omega}
+\def \om{\omega}
+
+% Готика
+\def \mA{\mathcal{A}}
+\def \mB{\mathcal{B}}
+\def \mC{\mathcal{C}}
+\def \mE{\mathcal{E}}
+\def \mF{\mathcal{F}}
+\def \mH{\mathcal{H}}
+\def \mL{\mathcal{L}}
+\def \mN{\mathcal{N}}
+\def \mU{\mathcal{U}}
+\def \mV{\mathcal{V}}
+\def \mW{\mathcal{W}}
+
+% Жирные буквы
+\def \mbb{\mathbb}
+\def \RR{\mbb R}
+\def \NN{\mbb N}
+\def \ZZ{\mbb Z}
+\def \PP{\mbb{P}}
+\def \QQ{\mbb Q}
+
+\def \putyourname{\fbox{
+    \begin{minipage}{42em}
+      Фамилия, имя, номер группы:\vspace*{3ex}\par
+      \noindent\dotfill\vspace{2mm}
+    \end{minipage}
+  }
+}
+
+\def \checktable{
+
+    \vspace{5pt}
+    Табличка для проверяющих работу:
+
+\vspace{5pt}
+
+    \begin{tabular}{|m{2cm}|m{1cm}|m{1cm}|m{1cm}|m{1cm}|m{1cm}|m{1cm}|m{1cm}|m{2cm}|}
+\toprule
+        Задачи & 1 & 2 & 3 & 4 & 5 & 6 & 7 & Итого \\
+\midrule
+        &  &  & & & & & & \\
+        &  &  & & & & & & \\
+ \bottomrule
+\end{tabular}
+}
+
+
+\def \testtable{
+
+\vspace{5pt}
+    Внесите сюда ответы на тест:
+
+\vspace{5pt}
+
+\begin{tabular}{|m{2cm}|m{0.6cm}|m{0.6cm}|m{0.6cm}|m{0.6cm}|m{0.6cm}|m{0.6cm}|m{0.6cm}|m{0.6cm}|m{0.6cm}|m{0.6cm}|}
+\toprule
+        Вопрос & 1 &  2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\
+\midrule
+        Ответ &  &  & & & & & & & & \\
+ \bottomrule
+\end{tabular}
+}
+
+
+% [1][3] 1 = one argument, 3 = value if missing
+% эта магия создаёт окружение answerlist
+% именно в окружении answerlist записаны варианты ответов в подключаемых exerciseXX
+% просто \begin{answerlist} сделает ответы в три столбца
+% если ответы длинные, то надо в них руками сделать
+% \begin{answerlist}[1] чтобы они шли в один столбец
+\newenvironment{answerlist}[1][3]{
+\begin{multicols}{#1}
+
+\begin{enumerate}[label=\fbox{\emph{\Alph*}},ref=\emph{\alph*}]
+}
+{
+\item Нет верного ответа.
+\end{enumerate}
+\end{multicols}
+}
+
+% BB: unicol version. don't know why \ifthenelse fails in second part of new-env
+\newenvironment{answerlistu}{
+\begin{enumerate}[label=\fbox{\emph{\Alph*}},ref=\emph{\alph*}]
+}
+{
+\item Нет верного ответа.
+\end{enumerate}
+}
+
+
+\excludecomment{solution} % without solutions
+
+\theoremstyle{definition}
+\newtheorem{question}{Вопрос}
+
+\usepackage{tikzlings}
+\usepackage{tikzducks}
+
+\usepackage{alltt}
+
+\begin{document}
+
+\putyourname
+
+% \testtable
+
+% \checktable
+
+\epigraph{Оки-доки.}{\textit{(Люси Маклин из Fallout перед тем как решить эту контрольную)}}
+
+Работа состоит из открытых вопросов на разные темы. На каждый из них вам необходимо дать краткие, но ёмкие ответы. Около каждого вопроса указано количество баллов, которое можно за него получить. Если у вопроса несколько подпунктов, баллы разделяются между  ними равномерно.
+
+\begin{question} \textbf{(2.5 балла)} \newline
+    Ядерная война превратила мир в постапокалиптическую пустошь. Часть людей мутировала. Для мутантов очень важно уметь прогнозировать радиационный фон. Он представляет из себя временной ряд и измеряется с помощью счётчика Гейгера. Мутанты взяли в плен выпускника ИАДа, то есть вас, и просят помощи с прогнозированием.
+    \begin{enumerate}
+        \item Какие модели для прогнозирования временных рядов вы знаете? Кратко опишите две свои любимые модели.
+        
+        \item Будем рассматривать конкретный момент времени как объект, а значение уровня радиации — как соответствующую целевую переменную. Чем для таких данных плоха стандартная K-Fold кросс-валидация? Как можно модернизировать её, чтобы корректно оценить качество модели, предсказывающей значение временного ряда?
+        
+        \item Как при прогнозировании временного ряда можно учитывать дополнительные факторы? Например, прогноз погоды? Предложите любой разумный способ.
+
+        \item Мутанты собрали исторические данные по погоде и хотят обучить на них модель для прогнозирования радиации. При обучении они используют реальные данные, а при прогнозировании подставляют в модель прогноз погоды на завтра. К каким проблемам приведёт такой подход? Как построить модель правильно?
+    \end{enumerate}
+\end{question}
+
+\begin{question} \textbf{(2.5 балла)} \newline
+    Ядерная война превратила мир в постапокалиптическую пустошь. Жителям пустоши не хватает красоты и эстетики. Решить их проблемы может любой выживший выпускник ИАДа, разбирающийся в генеративных моделях, то есть вы.
+    \begin{enumerate}
+        \item Опишите  в чём заключается смысл нормализационного потока. Что обучается в рамках модели? Как применить его для генерации нового изображения? 
+        \item Жителям пустоши хочется получить модель, которая по тексту генерировала бы картинку. Предложите пайплайн, который сделает такую генерацию.
+        \item Жители пустоши хотят генерировать картинки по аудио. Они говорят что-то в микрофон, а на экране появляется картинка. Предложите пайплайн, который решал бы такую задачу. На каких данных вы бы обучали такую модель?
+    \end{enumerate}
+\end{question}
+
+\newpage
+
+\begin{question} \textbf{(2.5 балла)} \newline
+    Ядерная война превратила мир в постапокалиптическую пустошь. Часть людей укрылась в убежище и спаслась от гибели. Чтобы выживать люди из убежища 23 взяли с собой в бункер кучу фильмов. Среди выживших оказались вы, выпускник ИАДа. Вы предложили обучить рекомендательную систему.
+    \begin{enumerate}
+        \item Запишите модель матричной факторизации. Поясните в ней все обозначения. На какой функционал она обучается? Опишите алгоритм обучения.
+    
+        \item Рассмотрим модель матричной факторизации без сдвигов, где векторы имеют размерность $10.$ У нас $1000$ пользователей и $100$ айтемов, для $5000$ пар пользователь-айтем известны результаты взаимодействия. Сколько параметров будет обучаться в модели? Сколько слагаемых будет в функционале для обучения (под одним слагаемым понимается один квадрат ошибки)?
+        
+        \item В соседних убежищах 21 и 22 тоже есть выпускники ИАДа и свои рекомендательные системы. В 21-м каждому юзеру показывают самый популярный фильм, который он ещё не смотрел. В 22-м показывают случайный фильм. 
+        
+        Чем эти подходы хуже/лучше обучения матричной факторизации? Придумайте хотябы одну метрику качества, по которой эти подходы окажутся хуже и хотябы одну, по которой лучше.
+
+        \item Какие нерешенные проблемы рекомендательных систем вы знаете? Кратко опишите, в чём они заключаются. 
+    \end{enumerate}
+\end{question}
+
+\begin{question} \textbf{(2.5 балла)} \newline
+   Ядерная война превратила мир в постапокалиптическую пустошь. Братство Стали собирает довоенные технологии. Оно наткнулось на офис OpenAI и обнаружило внутри огромную языковую модель и выпускника ИАДа в криогенной заморозке рядом. Этот выпускинк -- вы, вас разморозили и задают вам воросы. 
+    \begin{enumerate}
+        \item Как выглядит пайплайн тренировки больших языковых моделей? Какие шаги он в себя включает? 
+        \item Какие способы файн-тьюнинга больших языковых моделей вы знаете? Перечислите их и кратко опишите их особенности.
+        \item Что такое prompt? Что такое zero-shot learning и few-shot learning в контексте LLM моделей? Как они работают? 
+    \end{enumerate}
+\end{question}
+
+\end{document}
+
