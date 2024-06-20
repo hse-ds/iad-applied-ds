@@ -1,0 +1,325 @@
+\documentclass[12pt]{article}
+
+\usepackage{tikz} % картинки в tikz
+\usepackage{microtype} % свешивание пунктуации
+\usepackage{array} % для столбцов фиксированной ширины
+\usepackage{comment} % для комментирования целых окружений
+\usepackage{indentfirst} % отступ в первом параграфе
+
+\usepackage{sectsty} % для центрирования названий частей
+\allsectionsfont{\centering}
+
+\usepackage{amsmath, amssymb, amsthm, amsfonts} % куча стандартных математических плюшек
+
+\usepackage[top=2cm, left=1cm, right=1cm, bottom=2cm]{geometry} % размер текста на странице
+\usepackage{lastpage} % чтобы узнать номер последней страницы
+ 
+\usepackage{enumitem} % дополнительные плюшки для списков
+%  например \begin{enumerate}[resume] позволяет продолжить нумерацию в новом списке
+
+\usepackage{caption} % подписи к рисункам
+\usepackage{hyperref} % гиперссылки
+\usepackage{multicol} % текст в несколько столбцов
+
+
+\usepackage{fancyhdr} % весёлые колонтитулы
+\pagestyle{fancy}
+\lhead{Прикладные задачи анализа данных, ВШЭ}
+\chead{}
+\rhead{\today}
+\lfoot{Вариант $\pi$}
+\rfoot{Паниковать запрещается!}
+%\rfoot{Тест}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\usepackage{ifthen} % для написания условий
+
+\usepackage{todonotes} % для вставки в документ заметок о том, что осталось сделать
+% \todo{Здесь надо коэффициенты исправить}
+% \missingfigure{Здесь будет Последний день Помпеи}
+% \listoftodos --- печатает все поставленные \todo'шки
+
+
+% более красивые таблицы
+\usepackage{booktabs}
+% заповеди из докупентации:
+% 1. Не используйте вертикальные линни
+% 2. Не используйте двойные линии
+% 3. Единицы измерения - в шапку таблицы
+% 4. Не сокращайте .1 вместо 0.1
+% 5. Повторяющееся значение повторяйте, а не говорите "то же"
+
+
+\usepackage{fontspec}
+\usepackage{polyglossia}
+
+\setmainlanguage{russian}
+\setotherlanguages{english}
+
+% download "Linux Libertine" fonts:
+% http://www.linuxlibertine.org/index.php?id=91&L=1
+\setmainfont{Linux Libertine O} % or Helvetica, Arial, Cambria
+% why do we need \newfontfamily:
+% http://tex.stackexchange.com/questions/91507/
+\newfontfamily{\cyrillicfonttt}{Linux Libertine O}
+
+% Математические шрифты 
+% Математические шрифты 
+\usepackage{unicode-math}     
+\setmathfont[math-style=upright]{euler.otf} 
+
+\setmathfont[range={\mathbb, \mathop, \heartsuit, \angle, \smile, \varheartsuit}]{Asana-Math.otf}
+
+\AddEnumerateCounter{\asbuk}{\russian@alph}{щ} % для списков с русскими буквами
+\setlist[enumerate, 2]{label=\asbuk*),ref=\asbuk*}
+
+
+% мои цвета https://www.artlebedev.ru/colors/
+\definecolor{titleblue}{rgb}{0.2,0.4,0.6} 
+\definecolor{blue}{rgb}{0.2,0.4,0.6} 
+\definecolor{red}{rgb}{1,0,0.2} 
+\definecolor{green}{rgb}{0,0.6,0} 
+\definecolor{purp}{rgb}{0.4,0,0.8} 
+
+% цвета из geogebra 
+\definecolor{litebrown}{rgb}{0.6,0.2,0}
+\definecolor{darkbrown}{rgb}{0.75,0.75,0.75}
+
+% Гиперссылки
+\usepackage{xcolor}   % разные цвета
+
+\usepackage{hyperref}
+\hypersetup{
+    unicode=true,           % позволяет использовать юникодные символы
+    colorlinks=true,        % true - цветные ссылки
+    urlcolor=blue,          % цвет ссылки на url
+    linkcolor=black,          % внутренние ссылки
+    citecolor=green,        % на библиографию
+    breaklinks              % если ссылка не умещается в одну строку, разбивать её на две части?
+}
+
+% эпиграфы
+\usepackage{epigraph}
+\setlength\epigraphwidth{.7\textwidth}
+\setlength\epigraphrule{0pt}
+
+% Математические операторы первой необходимости:
+\DeclareMathOperator{\sgn}{sign}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Corr}{Corr}
+\DeclareMathOperator{\E}{\mathop{E}}
+\DeclareMathOperator{\Med}{Med}
+\DeclareMathOperator{\Mod}{Mod}
+\DeclareMathOperator*{\plim}{plim}
+
+\DeclareMathOperator{\logloss}{logloss}
+\DeclareMathOperator{\softmax}{softmax}
+
+\DeclareMathOperator{\tr}{tr}
+
+% команды пореже
+\newcommand{\const}{\mathrm{const}}  % const прямым начертанием
+\newcommand{\iid}{\sim i.\,i.\,d.}  % ну вы поняли...
+\newcommand{\fr}[2]{\ensuremath{^{#1}/_{#2}}}   % особая дробь
+\newcommand{\ind}[1]{\mathbbm{1}_{\{#1\}}} % Индикатор события
+\newcommand{\dx}[1]{\,\mathrm{d}#1} % для интеграла: маленький отступ и прямая d
+
+% одеваем шапки на частые штуки
+\def \hb{\hat{\beta}}
+\def \hs{\hat{s}}
+\def \hy{\hat{y}}
+\def \hY{\hat{Y}}
+\def \he{\hat{\varepsilon}}
+\def \hVar{\widehat{\Var}}
+\def \hCorr{\widehat{\Corr}}
+\def \hCov{\widehat{\Cov}}
+
+% Греческие буквы
+\def \a{\alpha}
+\def \b{\beta}
+\def \t{\tau}
+\def \dt{\delta}
+\def \e{\varepsilon}
+\def \ga{\gamma}
+\def \kp{\varkappa}
+\def \la{\lambda}
+\def \sg{\sigma}
+\def \tt{\theta}
+\def \Dt{\Delta}
+\def \La{\Lambda}
+\def \Sg{\Sigma}
+\def \Tt{\Theta}
+\def \Om{\Omega}
+\def \om{\omega}
+
+% Готика
+\def \mA{\mathcal{A}}
+\def \mB{\mathcal{B}}
+\def \mC{\mathcal{C}}
+\def \mE{\mathcal{E}}
+\def \mF{\mathcal{F}}
+\def \mH{\mathcal{H}}
+\def \mL{\mathcal{L}}
+\def \mN{\mathcal{N}}
+\def \mU{\mathcal{U}}
+\def \mV{\mathcal{V}}
+\def \mW{\mathcal{W}}
+
+% Жирные буквы
+\def \mbb{\mathbb}
+\def \RR{\mbb R}
+\def \NN{\mbb N}
+\def \ZZ{\mbb Z}
+\def \PP{\mbb{P}}
+\def \QQ{\mbb Q}
+
+\def \putyourname{\fbox{
+    \begin{minipage}{42em}
+      Фамилия, имя, номер группы:\vspace*{3ex}\par
+      \noindent\dotfill\vspace{2mm}
+    \end{minipage}
+  }
+}
+
+\def \checktable{
+
+    \vspace{5pt}
+    Табличка для проверяющих работу:
+
+\vspace{5pt}
+
+    \begin{tabular}{|m{2cm}|m{1cm}|m{1cm}|m{1cm}|m{1cm}|m{1cm}|m{1cm}|m{1cm}|m{2cm}|}
+\toprule
+        Задачи & 1 & 2 & 3 & 4 & 5 & 6 & 7 & Итого \\
+\midrule
+        &  &  & & & & & & \\
+        &  &  & & & & & & \\
+ \bottomrule
+\end{tabular}
+}
+
+
+\def \testtable{
+
+\vspace{5pt}
+    Внесите сюда ответы на тест:
+
+\vspace{5pt}
+
+\begin{tabular}{|m{2cm}|m{0.6cm}|m{0.6cm}|m{0.6cm}|m{0.6cm}|m{0.6cm}|m{0.6cm}|m{0.6cm}|m{0.6cm}|m{0.6cm}|m{0.6cm}|}
+\toprule
+        Вопрос & 1 &  2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\
+\midrule
+        Ответ &  &  & & & & & & & & \\
+ \bottomrule
+\end{tabular}
+}
+
+
+% [1][3] 1 = one argument, 3 = value if missing
+% эта магия создаёт окружение answerlist
+% именно в окружении answerlist записаны варианты ответов в подключаемых exerciseXX
+% просто \begin{answerlist} сделает ответы в три столбца
+% если ответы длинные, то надо в них руками сделать
+% \begin{answerlist}[1] чтобы они шли в один столбец
+\newenvironment{answerlist}[1][3]{
+\begin{multicols}{#1}
+
+\begin{enumerate}[label=\fbox{\emph{\Alph*}},ref=\emph{\alph*}]
+}
+{
+\item Нет верного ответа.
+\end{enumerate}
+\end{multicols}
+}
+
+% BB: unicol version. don't know why \ifthenelse fails in second part of new-env
+\newenvironment{answerlistu}{
+\begin{enumerate}[label=\fbox{\emph{\Alph*}},ref=\emph{\alph*}]
+}
+{
+\item Нет верного ответа.
+\end{enumerate}
+}
+
+
+\excludecomment{solution} % without solutions
+
+\theoremstyle{definition}
+\newtheorem{question}{Вопрос}
+
+\usepackage{tikzlings}
+\usepackage{tikzducks}
+
+\usepackage{alltt}
+
+\begin{document}
+
+\putyourname
+
+% \testtable
+
+% \checktable
+
+\epigraph{Страх убивает разум. Страх – это малая смерть, несущая забвение. Я смотрю в лицо моему страху, я дам ему пройти сквозь меня. И когда он пройдет сквозь меня, я обернусь и посмотрю на тропу страха. Там, где прошел страх, не осталось ничего. Там, где прошел страх, останусь только я.}{\textit{(Пол Атрейдес перед тем как решить этот экзамен)}}
+
+Добро пожаловать на экзамен. Работа состоит из открытых вопросов на разные темы. На каждый из них вам необходимо дать краткие, но ёмкие ответы. Около каждого вопроса указано количество баллов, которое можно за него получить. Если у вопроса несколько подпунктов, баллы разделяются между  ними равномерно.
+
+\textbf{В качестве ответа на вопрос просто написать аббревиатуру или определение  -- недостаточно. Полностью пишите определение понятия и описывайте модели/пайплайны.}
+
+\begin{question} \textbf{(3 балла)} \newline
+    Арракис это планета пустыня, принадлежащая Харконненам. Чтобы добывать специю, Харконнены привезли на Арракис новый трактор. В любой момент Шаи-Хулуд может уничтожить трактор. Чтобы построить новый нужна 3D-модель. Вы должны проконсультировать Харконненов и помочь им сделать 3D-модель трактора.
+    \begin{enumerate}
+        \item  Опишите принцип работы volume Rendering. Что такое функция луча? Что именно означают плотность пространства σ(x) и цвет c(x,v), какие у них аргументы? Как на основе них получить цвет пикселя? Как при расчётах учитывается луч? 
+        
+        \item  Опишите подход NeRF. Какая функция потерь используется в  нём для обучения? В чём заключается harmonic embeddings? Как он помогает при моделировании объекта? 
+        
+        \item  Как выглядит выборка для 3D моделирования? Как Харконненам собрать выборку для своего трактора?
+    \end{enumerate}
+\end{question}
+
+\begin{question} \textbf{(3 балла)} \newline
+    Сёстры Бене Гессерит подозревают, что вы избранный. Чтобы проверить это, они задумали для вас тест. Они будут задавать вопросы про рекомендательные системы, а вы отвечать. Пройдите их испытание:
+    \begin{enumerate}
+        \item  Для чего в рекомендательных системах нужен этап отбора кандидатов? Приведите хотя бы два примера подходов, которые могут подойти для этого этапа. 
+        
+        \item Опишите как устроен doc2doc подход. Как в рамках рекомендательной системы можно одновременно учесть и фидбэк пользователя и контент? Опишите пайплайн, который можно было бы использовать. Какие действия надо предпринять при его обучении, чтобы избежать переобучения?
+        
+        \item Какой смысл в метрике качества рекомендаций $MAP@k$? Как она вычисляется? Как вычисляется метрика качества $DCG@k$? Чем она лучше $MAP@k$? Как она учитывает её минусы? 
+    \end{enumerate}
+\end{question}
+
+\newpage
+
+\begin{question} \textbf{(3 балла)} \newline
+    Вы хотите вступить в Космическую Гильдию. Гильдия занимается межзвёздной торговлей и её членам приходится много работать с временными рядами. Поэтому на собеседовании вопросы именно по ним. Пройдите собеседование и ответьте на все вопросы:
+    \begin{enumerate}
+        \item Чем ARIMA модель отличается от ETS-модели? Что такое стационарность временного ряда? Какая из двух моделей опирается на это свойство? 
+        
+        \item В чём заключается прямая стратегия прогнозирования временного ряда? В чём заключается рекурсивная стратегия? Какие у этих стратегий есть приемущества и недостатки?
+
+        \item  Как для предсказания временного ряда можно обучить бустинг? Какие признаки можно выделить из метки времени? Какие признаки можно выделить из значений ряда?
+    \end{enumerate}
+\end{question}
+
+\begin{question} \textbf{(1 балл)} \newline
+    Племя фрименов бродило по пустыне и наткнулось в одной из пещер на древние рукописи. В них была информация о том, как правильно обучать GAN. Исследователи обозначили генератор как $G(z),$ дискриминатор как $D(x),$ метку объекта как $y_i \in \{0,1\}$ и попытались восстановить по рукописям функции потерь для обучение дискриминатора 
+    
+    $$
+    \frac{1}{n} \sum_{i=1}^n y_i \cdot \log G(x_i) + (1 - y_i) \cdot \log(1 - G(x_i)) \to \min_G
+    $$
+    
+    и для обучения генератора
+    
+    $$
+    \frac{1}{n} \sum_{i=1}^n \log(1 - G(D(z_i))) \to \min_G.
+    $$
+    
+    Найдите все ошибки в этих формулах. Объясните, почему это ошибки. Исправьте их. 
+\end{question}
+
+\end{document}
