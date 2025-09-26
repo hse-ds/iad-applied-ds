@@ -1,0 +1,13 @@
+version: "3.9"
+services:
+  model-server:
+    build: ./model-server
+    ports:
+      - "8001:8001"
+
+  telegram-bot:
+    build: ./telegram-bot
+    env_file:
+      - ./telegram-bot/.env
+    depends_on:
+      - model-server
